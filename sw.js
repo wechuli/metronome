@@ -1,5 +1,5 @@
 /* Offline support: serve the app from the cache, refresh the cache in the background.
- * Bump VERSION whenever a file changes, so installed copies pick up the new files. */
+ * VERSION is stamped with the commit by the deploy workflow, so installed copies pick up new files. */
 const VERSION = "metronome-v1";
 const FILES = ["./", "index.html", "style.css", "meter.js", "app.js", "manifest.webmanifest",
                "icons/icon-192.png", "icons/icon-512.png", "icons/icon-maskable-512.png", "icons/apple-touch-icon.png"];

@@ -35,8 +35,10 @@ Plain HTML, CSS and JavaScript, no build step and no dependencies.
 | `app.js` | Interface, audio and scheduling |
 | `sw.js`, `manifest.webmanifest`, `icons/` | Installable, offline web app |
 | `test/meter.test.js` | Tests for `meter.js`: `node --test` (Node 18+) |
+| `.github/workflows/ci.yml` | Test, then deploy to GitHub Pages |
 
-Run locally: `python3 -m http.server` in this folder, then open http://localhost:8000. When you change a file, bump
-`VERSION` in `sw.js` so installed copies update.
+Run locally: `python3 -m http.server` in this folder, then open http://localhost:8000. Every push to `main` runs the tests and, if they pass, deploys to GitHub
+Pages (`.github/workflows/ci.yml`). The deploy stamps `VERSION` in `sw.js` with the commit, so
+installed copies update; pull requests only run the tests.
 
 MIT licence.
