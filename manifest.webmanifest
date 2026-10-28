@@ -1,0 +1,16 @@
+{
+  "name": "Metronome",
+  "short_name": "Metronome",
+  "description": "A simple, ad-free practice metronome with any time signature, uneven groupings, changing meters, subdivisions and tap tempo.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#eef0f2",
+  "theme_color": "#8a3b24",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

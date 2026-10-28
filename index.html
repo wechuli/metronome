@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Metronome</title>
+<meta name="description" content="A simple, ad-free practice metronome: any time signature, irregular groupings like 2+2+3, changing meters, subdivisions and tap tempo. Works offline.">
+<meta name="theme-color" content="#eef0f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15181c" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>Metronome</h1>
+
+  <section class="dial">
+    <div class="tempo"><span class="ref" id="refSymbol">♩</span><span class="eq">=</span><span class="bpm" id="bpm">72</span></div>
+    <div class="unit" id="unitLabel">quarter notes per minute</div>
+    <div class="marking" id="marking">Adagio</div>
+    <div class="beats" id="beats" aria-hidden="true"></div>
+    <div class="barinfo" id="barinfo">4/4</div>
+  </section>
+
+  <div class="steps">
+    <button id="m5" aria-label="5 slower">−5</button>
+    <button id="m1" aria-label="1 slower">−1</button>
+    <button id="p1" aria-label="1 faster">+1</button>
+    <button id="p5" aria-label="5 faster">+5</button>
+  </div>
+
+  <div>
+    <input type="range" id="slider" min="20" max="300" value="72" aria-label="Tempo">
+    <div class="scale"><span>20</span><span>60</span><span>100</span><span>140</span><span>180</span><span>220</span><span>300</span></div>
+  </div>
+
+  <button id="start" class="primary">Start</button>
+  <div class="row">
+    <button id="tap">Tap tempo</button>
+    <button id="slow">Slow down 10%</button>
+  </div>
+
+  <div class="settings">
+    <div class="field wide">
+      <label for="meter">Time signature</label>
+      <select id="meter">
+        <optgroup label="Simple time">
+          <option value="2/4">2/4</option>
+          <option value="3/4">3/4</option>
+          <option value="4/4" selected>4/4</option>
+          <option value="5/4">5/4</option>
+          <option value="6/4">6/4</option>
+          <option value="2/2">2/2 (cut time)</option>
+          <option value="3/2">3/2</option>
+        </optgroup>
+        <optgroup label="Compound time (beats of three eighths)">
+          <option value="3/8">3/8 (felt in one)</option>
+          <option value="6/8">6/8 (felt in two)</option>
+          <option value="9/8">9/8 (felt in three)</option>
+          <option value="12/8">12/8 (felt in four)</option>
+          <option value="6/4(3+3)">6/4 felt in two (3+3)</option>
+        </optgroup>
+        <optgroup label="Uneven beats">
+          <option value="5/8(2+3)">5/8 (2+3)</option>
+          <option value="5/8(3+2)">5/8 (3+2)</option>
+          <option value="7/8(2+2+3)">7/8 (2+2+3)</option>
+          <option value="7/8(3+2+2)">7/8 (3+2+2)</option>
+          <option value="7/8(2+3+2)">7/8 (2+3+2)</option>
+          <option value="5/4(3+2)">5/4 (3+2)</option>
+        </optgroup>
+        <optgroup label="Your own">
+          <option value="custom">Type a time signature or a sequence…</option>
+        </optgroup>
+      </select>
+    </div>
+    <div class="field wide" id="customField" hidden>
+      <label for="custom">Bars, in order (they repeat)</label>
+      <input id="custom" type="text" inputmode="text" autocomplete="off" spellcheck="false" value="3/4 3/4 2/4">
+      <p class="note" id="customNote">Examples: <code>5/4 6/4</code>, <code>3/4*3 2/4</code>, <code>7/8(3+2+2)</code>, <code>11/8(3+3+2+3)</code>.</p>
+    </div>
+    <div class="field">
+      <label for="sub">Clicks per beat</label>
+      <select id="sub">
+        <option value="beats" selected>Beats only</option>
+        <option value="eighths">Every eighth note</option>
+        <option value="triplets">Triplets</option>
+        <option value="sixteenths">Every sixteenth</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="sound">Sound</label>
+      <select id="sound">
+        <option value="wood" selected>Woodblock</option>
+        <option value="beep">Beep</option>
+        <option value="soft">Soft</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="vol">Volume</label>
+      <input type="range" id="vol" min="0" max="100" value="80" aria-label="Volume">
+    </div>
+    <label class="check"><input type="checkbox" id="accent" checked> Accent the first beat of the bar</label>
+  </div>
+
+  <details class="help">
+    <summary>How to set it for your music</summary>
+    <ul>
+      <li>The tempo is for the note shown next to the number. In 6/8 it is the dotted quarter (two beats a bar); in 7/8 and other uneven meters it is the eighth note, and the longer beats get louder clicks.</li>
+      <li>If the music says ♩. = 60 in 6/8, choose 6/8 and set 60. If it says ♪ = 160 in 7/8, choose the grouping the music shows and set 160.</li>
+      <li>For music that changes time signature, choose “Your own” and type the bars in order, for example <code>3/4 3/4 2/4</code>. The eighth note stays the same length across the changes.</li>
+      <li>Set it slow enough that you never stop. Stumbling more than twice? Slow down 10%.</li>
+      <li>Keys: <kbd>Space</kbd> start/stop, <kbd>←</kbd> <kbd>→</kbd> tempo ±1, <kbd>T</kbd> tap.</li>
+    </ul>
+  </details>
+</main>
+<script src="meter.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
